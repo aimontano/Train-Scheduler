@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Train Scheduler</title>
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<script src="https://www.gstatic.com/firebasejs/live/3.0/firebase.js"></script>
+</head>
+<body>
+	<div class="container">
+
+		<div class="jumbotron jumbotron-fluid text-white" style="background: #bf4040">
+			<h1 class="display-4 text-center" >Anytime is Train Time</h1>	
+			<p class="lead text-center">Choo Choo. Chee. Chee</p>
+		</div>
+
+
+		<div class="card border-primary mb-3 mt-3">
+			<div class="card-header bg-primary text-white p-2">
+				Current Train Schedule
+			</div>
+			<div class="card-body">
+				<table class="table">
+					<thead>
+						<th scope="col">Train Name</th>
+						<th scope="col">Destination</th>
+						<th scope="col">Frequency (mins)</th>
+						<th scope="col">Next Arrival</th>
+						<th scope="col">Minutes Away</th>
+					</thead>
+				</table>
+				<tbody></tbody>
+			</div>
+		</div>
+
+		<div class="card border-primary mb-3 mt-3">
+			<div class="card-header bg-primary text-white p-2">
+				Add Train
+			</div>
+			<div class="card-body">
+				<form>
+					<div class="form-group">
+						<label for="txtTrainName">Train Name</label>
+						<input type="text" id="txtTrainName" class="form-control" />
+					</div>
+
+					<div class="form-group">
+						<label for="txtTrainDestination">Destination</label>
+						<input type="text" id="txtTrainDestination" class="form-control" />
+					</div>
+
+					<div class="form-group">
+						<label for="txtFirstTrainTime">First Train Time (HH:mm - Military Time)</label>
+						<input type="text" id="txtFirstTrainTime" class="form-control" />
+					</div>
+
+					<div class="form-group">
+						<label for="txtFrequency">Frequency</label>
+						<input type="text" id="txtFrequency" class="form-control" />
+					</div>
+
+					<button type="submit" class="btn btn-primary">Submit</button>
+				</form>
+			</div>
+		</div>
+
+	</div>
+
+	<script src="https://cdn.jsdelivr.net/momentjs/2.12.0/moment.min.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/5.4.2/firebase.js"></script>
+	<script src="./assets/javascript/app.js"></script>
+</body>
+</html>
