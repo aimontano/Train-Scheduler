@@ -12,9 +12,6 @@ firebase.initializeApp(config);
 
 let database = firebase.database();
 
-let now = (moment().hour() * 60) + moment().minute();
-
-
 // functions upload train info to databas
 const uploadTrain = (name, destination, firstTrainTime, frequency) => {
   database.ref('/trains').push({
@@ -27,33 +24,34 @@ const uploadTrain = (name, destination, firstTrainTime, frequency) => {
 
 // loads data from database
 database.ref('/trains').on('child_added', snap => {
-  displayTrains(snap.val()); // displays data
-  getNextArrival(snap.val());
+  setInterval(displayTrains(snap.val()), 1000 * 60);
 });
 
-
+// functions return mins away according to mins frequency
 const getMinsAway = snap => {
+  let now = (moment().hour() * 60) + moment().minute();
   let minsAway = Math.abs((now % snap.trainFrequency) - snap.trainFrequency);
   return minsAway;
 }
 
+// functions returns next arrival
 const getNextArrival = snap => {
   let minsAway = getMinsAway(snap);
-  console.log(minsAway);
+  let nextArrival = moment().add(minsAway, 'minutes').format('hh:mm A');
+  return nextArrival;
 }
-
 
 // functions displays data 
 const displayTrains = snap => {
-  console.log(snap.firstTrainTime);
   let tr = $('<tr>');
   tr.append($('<td>').text(snap.trainName));
   tr.append($('<td>').text(snap.trainDestination));
   tr.append($('<td>').text(snap.trainFrequency));
-  tr.append($('<td>').text(''));
+  tr.append($('<td>').text(getNextArrival(snap)));
   tr.append($('<td>').text(getMinsAway(snap)));
   $('tbody').append(tr);
 }
+
 
 // when submit button is clicked...
 $('#btnAdd').click(e => {
