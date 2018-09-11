@@ -22,10 +22,14 @@ const uploadTrain = (name, destination, firstTrainTime, frequency) => {
   });
 }
 
-// loads data from database
-database.ref('/trains').on('child_added', snap => {
-  displayTrains(snap.val()); // displays data
-});
+// function loads trains from data base
+const loadTrains = () => {
+  $('tbody').html('');
+  // loads data from database
+  database.ref('/trains').on('child_added', snap => {
+    displayTrains(snap.val()); // displays data
+  });
+}
 
 // functions return mins away according to mins frequency
 const getMinsAway = snap => {
@@ -52,6 +56,11 @@ const displayTrains = snap => {
   $('tbody').append(tr);
 }
 
+// call load trains
+loadTrains();
+
+// load trains every minute
+setInterval(loadTrains, 1000 * 60);
 
 // when submit button is clicked...
 $('#btnAdd').click(e => {
