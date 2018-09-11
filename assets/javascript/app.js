@@ -24,7 +24,7 @@ const uploadTrain = (name, destination, firstTrainTime, frequency) => {
 
 // loads data from database
 database.ref('/trains').on('child_added', snap => {
-  setInterval(displayTrains(snap.val()), 1000 * 60);
+  displayTrains(snap.val()); // displays data
 });
 
 // functions return mins away according to mins frequency
