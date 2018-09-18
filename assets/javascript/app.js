@@ -32,15 +32,15 @@ const loadTrains = () => {
 }
 
 // functions return mins away according to mins frequency
-const getMinsAway = snap => {
+const getMinsAway = frequency => {
   let now = (moment().hour() * 60) + moment().minute();
-  let minsAway = Math.abs((now % snap.trainFrequency) - snap.trainFrequency);
+  let minsAway = Math.abs((now % frequency) - frequency);
   return minsAway;
 }
 
 // functions returns next arrival
-const getNextArrival = snap => {
-  let minsAway = getMinsAway(snap);
+const getNextArrival = frequency => {
+  let minsAway = getMinsAway(frequency);
   let nextArrival = moment().add(minsAway, 'minutes').format('hh:mm A');
   return nextArrival;
 }
@@ -51,8 +51,8 @@ const displayTrains = snap => {
   tr.append($('<td>').text(snap.trainName));
   tr.append($('<td>').text(snap.trainDestination));
   tr.append($('<td>').text(snap.trainFrequency));
-  tr.append($('<td>').text(getNextArrival(snap)));
-  tr.append($('<td>').text(getMinsAway(snap)));
+  tr.append($('<td>').text(getNextArrival(snap.trainFrequency)));
+  tr.append($('<td>').text(getMinsAway(snap.trainFrequency)));
   $('tbody').append(tr);
 }
 
